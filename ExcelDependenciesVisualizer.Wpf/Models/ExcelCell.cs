@@ -27,7 +27,7 @@ public record ExcelCell
     private List<string> ExtractCellsFromFormula()
     {
         HashSet<string> cellReferences = new HashSet<string>();
-        var tokens = Formula.SplitMultiDelims("+-*/()=, \"");
+        var tokens = Formula.SplitMultiDelims("+-*/()=:, \"");
 
         // Regex pattern to match valid cell references
         string pattern = @"^[A-Z]+[0-9]+$"; // e.g., A1, B12, AA30
