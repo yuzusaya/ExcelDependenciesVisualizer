@@ -56,7 +56,8 @@
                 <!-- Sheet Name Dropdown -->
                 <Label Content="シート:" VerticalAlignment="Center" Margin="5" />
                 <ComboBox Width="150" Margin="5" 
-         ItemsSource="{Binding SheetNameList}" SelectedItem="{Binding SelectedSheetName}"/>
+                          ItemsSource="{Binding SheetNameList}" SelectedItem="{Binding SelectedSheetName}"
+                          DropDownOpened="SheetNameDropDownOpened"/>
 
                 <!-- Cell Address TextBox -->
                 <Label Content="セル:" VerticalAlignment="Center" Margin="5" />

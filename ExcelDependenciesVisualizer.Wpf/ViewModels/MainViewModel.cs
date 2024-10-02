@@ -16,6 +16,8 @@ public partial class MainViewModel : BaseModel
 {
     private IExcelService _excelService;
     private Notifier _notifier;
+    [ObservableProperty]
+    private string _selectedExcelFilePath = string.Empty;
     private List<ExcelCell> _excelCells = new();
     [ObservableProperty]
     private List<string> _sheetNameList = new();
@@ -42,6 +44,7 @@ public partial class MainViewModel : BaseModel
         {
             try
             {
+                SelectedExcelFilePath = openFileDialog.FileName;
                 var excelCells = await Task.Run(() => _excelService.GetExcelCells(openFileDialog.FileName));
                 _excelCells = excelCells.ToList();
                 SheetNameList = _excelCells.Select(x => x.SheetName).Distinct().ToList();

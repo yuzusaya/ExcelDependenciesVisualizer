@@ -30,5 +30,13 @@ namespace ExcelDependenciesVisualizer.Wpf
                 _viewModel.SearchReferencedByCellsCommand?.Execute(null);
             }
         }
+
+        private void SheetNameDropDownOpened(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(_viewModel.SelectedExcelFilePath))
+            {
+                _viewModel.LoadExcelCommand?.Execute(null);
+            }
+        }
     }
 }
