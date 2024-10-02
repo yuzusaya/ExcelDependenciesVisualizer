@@ -127,8 +127,12 @@ public partial class MainViewModel : BaseModel
         }
     }
 
-    private List<ExcelCellDto> GetReferencingCells(string sheetName, string cellAddress)
+    private List<ExcelCellDto> GetReferencingCells(string sheetName, string cellAddress, List<string> referencedCellList = null)
     {
+        if (referencedCellList == null)
+        {
+            referencedCellList = new List<string>();
+        }
         var referencingCells = new List<ExcelCellDto>();
         var referencingCellAddresses = _excelCells
             .Where(x => x.ReferencingCells.Contains($"{sheetName}!{cellAddress}"))
@@ -139,13 +143,18 @@ public partial class MainViewModel : BaseModel
             var referencingCell = new ExcelCellDto()
             {
                 Cell = referencingCellAddress,
-                ReferencedByCells = GetReferencingCells(referencingCellAddress.SheetName, referencingCellAddress.CellAddress)
             };
+            if (referencedCellList.Contains($"{referencingCell.Cell.SheetName}!{referencingCell.Cell.CellAddress}"))
+            {
+                continue;
+            }
+            referencedCellList.Add($"{referencingCell.Cell.SheetName}!{referencingCell.Cell.CellAddress}");
+            referencingCell.ReferencedByCells = GetReferencingCells(referencingCellAddress.SheetName, referencingCellAddress.CellAddress, referencedCellList);
             referencingCells.Add(referencingCell);
         }
         return referencingCells;
     }
-    
+
     public event EventHandler SearchExecuted;
     public MainViewModel()
     {
