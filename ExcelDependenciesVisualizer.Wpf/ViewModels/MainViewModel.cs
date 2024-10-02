@@ -24,7 +24,8 @@ public partial class MainViewModel : BaseModel
     private List<ExcelCellDto> _referencingCells = new();
     [ObservableProperty]
     private Visibility _formulaVisibility = Visibility.Hidden;
-    public string SelectedCellAddress { get; set; } = string.Empty;
+    [ObservableProperty]
+    private string _selectedCellAddress = string.Empty;
     public ExcelCellDto SelectedCell { get; set; }
 
     [RelayCommand(AllowConcurrentExecutions = false)]
@@ -74,7 +75,12 @@ public partial class MainViewModel : BaseModel
             _notifier.ShowInformation("コピーしました。");
         }
     }
-
+    [RelayCommand]
+    private void SelectedCellDoubleClicked(ExcelCellDto excelCellDto)
+    {
+        SelectedCellAddress = excelCellDto.Cell.CellAddress;
+        SelectedSheetName = excelCellDto.Cell.SheetName;
+    }
     [RelayCommand]
     private void SearchReferencedByCells()
     {

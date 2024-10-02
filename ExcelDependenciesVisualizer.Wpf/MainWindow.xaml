@@ -79,6 +79,10 @@
                             <i:InvokeCommandAction Command="{Binding CellSelectedCommand}" 
                              CommandParameter="{Binding ElementName=cellTree, Path=SelectedItem}"/>
                         </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding SelectedCellDoubleClickedCommand}"
+                                                   CommandParameter="{Binding ElementName=cellTree, Path=SelectedItem}"/>
+                        </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding ReferencedByCells}">
