@@ -62,11 +62,13 @@
                 <Label Content="セル:" VerticalAlignment="Center" Margin="5" />
                 <TextBox Width="100" Margin="5"  
                         Text="{Binding SelectedCellAddress}"
-                        VerticalAlignment="Center"/>
+                        VerticalAlignment="Center"
+                        KeyDown="CellTextBox_KeyDown"/>
 
                 <!-- Search Button -->
                 <Button Content="検索" Width="100" Margin="5" 
-                        Command="{Binding SearchReferencedByCellsCommand}"/>
+                        Command="{Binding SearchReferencedByCellsCommand}"
+                        x:Name="searchButton"/>
             </StackPanel>
 
             <!-- TreeView to Display Referencing Cells -->

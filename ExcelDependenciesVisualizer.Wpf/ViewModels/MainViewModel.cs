@@ -4,6 +4,7 @@ using ExcelDependenciesVisualizer.Wpf.Services;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
@@ -86,7 +87,7 @@ public partial class MainViewModel : BaseModel
     {
         try
         {
-            //cannot search when editing text box
+            SearchExecuted?.Invoke(this, EventArgs.Empty);
             if (string.IsNullOrWhiteSpace(SelectedSheetName) || string.IsNullOrWhiteSpace(SelectedCellAddress))
             {
                 _notifier.ShowWarning("シート名とセルアドレスを選択してください。");
@@ -141,6 +142,8 @@ public partial class MainViewModel : BaseModel
         }
         return referencingCells;
     }
+    
+    public event EventHandler SearchExecuted;
     public MainViewModel()
     {
         _excelService = new ExcelNpoiService();
